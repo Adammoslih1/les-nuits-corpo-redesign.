@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Les Nuits Corpo Design System - Elegant Corporate Theme */
+
+@layer base {
+  :root {
+    /* Elegant dark corporate theme */
+    --background: 222 47% 11%;
+    --foreground: 60 30% 96%;
+    
+    --card: 222 47% 15%;
+    --card-foreground: 60 30% 96%;
+    
+    --popover: 222 47% 15%;
+    --popover-foreground: 60 30% 96%;
+    
+    /* Sophisticated gold primary */
+    --primary: 45 93% 78%;
+    --primary-foreground: 222 47% 11%;
+    
+    /* Refined silver/platinum secondary */
+    --secondary: 220 15% 25%;
+    --secondary-foreground: 60 30% 96%;
+    
+    /* Elegant accent */
+    --accent: 200 25% 35%;
+    --accent-foreground: 60 30% 96%;
+    
+    --muted: 222 47% 18%;
+    --muted-foreground: 220 15% 65%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 60 30% 96%;
+    
+    --border: 222 47% 20%;
+    --input: 222 47% 18%;
+    --ring: 45 93% 78%;
+    
+    --radius: 0.75rem;
+    
+    /* Custom elegant tokens */
+    --gold: 45 93% 78%;
+    --platinum: 220 15% 85%;
+    --charcoal: 222 47% 15%;
+    
+    /* Sophisticated gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(222 47% 11% / 0.95), hsl(222 47% 15% / 0.9));
+    --gradient-primary: linear-gradient(135deg, hsl(45 93% 78%), hsl(45 100% 85%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 15% 25%), hsl(222 47% 18%));
+    
+    /* Subtle shadows */
+    --shadow-elegant: 0 10px 40px hsl(222 47% 5% / 0.3);
+    --shadow-gold: 0 5px 20px hsl(45 93% 78% / 0.2);
+    
+    /* Refined animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  /* Elegant glow effects */
+  .elegant-glow {
+    text-shadow: 0 2px 8px hsl(var(--gold) / 0.3);
+  }
+  
+  /* Refined backgrounds */
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  /* Sophisticated animated background */
+  .sophisticated-bg {
+    background: linear-gradient(135deg, 
+      hsl(222 47% 11% / 0.95), 
+      hsl(222 47% 15% / 0.9), 
+      hsl(222 47% 11% / 0.95));
+    background-size: 200% 200%;
+    animation: elegant-shift 12s ease infinite;
+  }
+  
+  /* Refined animations */
+  .animate-elegant-fade {
+    animation: elegant-fade 1s ease-out forwards;
+  }
+  
+  .animate-elegant-slide {
+    animation: elegant-slide 1s ease-out forwards;
+  }
+  
+  .animate-gentle-float {
+    animation: gentle-float 8s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-shadow-elegant {
+    text-shadow: 0 2px 8px hsl(var(--gold) / 0.2);
+  }
+  
+  .backdrop-blur-elegant {
+    backdrop-filter: blur(12px) saturate(150%);
+  }
+}
+
+/* Elegant Keyframes */
+@keyframes elegant-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes elegant-fade {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes elegant-slide {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
