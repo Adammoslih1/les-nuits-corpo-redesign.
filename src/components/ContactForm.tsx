@@ -20,24 +20,54 @@ const ContactForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Requests are delivered by email through Web3Forms (free, no backend needed).
+  // Set VITE_WEB3FORMS_KEY in a .env.local file or your hosting provider's settings.
+  // Without a key, the visitor's email app opens with the request pre-filled,
+  // so no lead is ever silently lost.
+  const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+  const contactEmail = 'contact@lesnuitscorpo.com';
+
+  const resetForm = () =>
+    setFormData({ fullName: '', phone: '', email: '', position: '', motivation: '' });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
+    if (!accessKey) {
+      const body = [
+        `Full name: ${formData.fullName}`,
+        `Phone: ${formData.phone}`,
+        `Email: ${formData.email}`,
+        `Position: ${formData.position}`,
+        '',
+        formData.motivation,
+      ].join('\n');
+      window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
+        `Invitation request - ${formData.fullName}`,
+      )}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      toast.success('Request sent successfully! Our team will contact you soon.');
-      setFormData({
-        fullName: '',
-        phone: '',
-        email: '',
-        position: '',
-        motivation: '',
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Invitation request - ${formData.fullName}`,
+          from_name: 'Les Nuits Corpo website',
+          replyto: formData.email,
+          ...formData,
+        }),
       });
-    } catch (error) {
-      toast.error('Error sending request. Please try again.');
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message);
+
+      toast.success('Request sent successfully! Our team will contact you soon.');
+      resetForm();
+    } catch {
+      toast.error(`Error sending request. Please try again or email us at ${contactEmail}.`);
     } finally {
       setIsSubmitting(false);
     }
